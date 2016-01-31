@@ -13,7 +13,7 @@ defmodule Derviche.Router do
     plug :accepts, ["json"]
 
     get "/highscores", ScoreController, :get_highscores
-    post "/scores/new", ScoreController, :create
+    post "/scores/new", ScoreController, :new
     get "/scores/:username", ScoreController, :show
 
     resources "/scores", ScoreController, except: [:new, :edit]
