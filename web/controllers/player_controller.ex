@@ -24,6 +24,23 @@ defmodule Derviche.PlayerController do
     end
   end
 
+  def calculate_highscores(scores) do
+    highscores = []
+    ordered_scores = []
+    for n <- 0..4 do
+      ordered_scores = Enum.into(ordered_scores, [Enum.max_by(scores, fn(x) -> x end)])
+      IO.puts "Primero #{inspect ordered_scores}"
+      [max_score|_] = ordered_scores
+      IO.puts "2do #{inspect max_score}"
+      highscores = Enum.into(highscores, [max_score])
+      IO.puts "3ro #{inspect highscores}"
+      {to_delete, _} = Enum.fetch!(highscores, n)
+      IO.puts "4to #{inspect to_delete}"
+      scores = Map.drop(scores, [to_delete])
+      IO.puts "5to #{inspect scores}"
+    end
+  end
+
   def index(conn, _params) do
     players = Repo.all(Player)
     render(conn, "index.json", players: players)
