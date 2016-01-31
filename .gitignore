@@ -7,6 +7,9 @@
 # Generate on crash by the VM
 erl_crash.dump
 
+# Keys
+/lib/keys.ex
+
 # The config/prod.secret.exs file by default contains sensitive
 # data and you should not commit it into version control.
 #
