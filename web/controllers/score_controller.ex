@@ -8,8 +8,8 @@ defmodule Derviche.ScoreController do
 
   plug :scrub_params, "score" when action in [:create, :update]
 
-  def get_highscores do
-    highscores = 
+  def get_highscores(conn, _) do
+    highscores = ExFirebase.get("scores")
     render(conn, "highscores.json", highscores: highscores)
   end
 
