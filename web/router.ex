@@ -15,6 +15,8 @@ defmodule Derviche.Router do
     get "/highscores", ScoreController, :get_highscores
     post "/scores/new", ScoreController, :create
     get "/scores/:username", ScoreController, :show
+
+    resources "/scores", ScoreController, except: [:new, :edit]
   end
 
   scope "/", Derviche do
