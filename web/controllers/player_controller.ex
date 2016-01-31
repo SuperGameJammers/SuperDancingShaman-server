@@ -13,6 +13,17 @@ defmodule Derviche.PlayerController do
     render(conn, "index.json", scores: scores)
   end
 
+  defp parse_scores(scores) do
+    case JSX.decode(scores) do
+      {:ok, scores} ->
+        scores
+      {:error, reason} ->
+        text(conn, "Something weird happened! Error: #{reason}")
+      :else ->
+        text(conn, "Something extremely weird happened!")
+    end
+  end
+
   def index(conn, _params) do
     players = Repo.all(Player)
     render(conn, "index.json", players: players)
