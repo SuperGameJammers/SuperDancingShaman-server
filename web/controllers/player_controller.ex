@@ -2,8 +2,16 @@ defmodule Derviche.PlayerController do
   use Derviche.Web, :controller
 
   alias Derviche.Player
+  alias Derviche.Keys
+
+  ExFirebase.set_url(Keys.Firebase_url)
 
   plug :scrub_params, "player" when action in [:create, :update]
+
+  def highscores(conn, _) do
+    scores = ExFirebase.get()
+    render(conn, "index.json", scores: scores)
+  end
 
   def index(conn, _params) do
     players = Repo.all(Player)
