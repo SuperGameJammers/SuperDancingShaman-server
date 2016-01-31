@@ -11,6 +11,11 @@ defmodule Derviche.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    get "/highscores", PlayerController, :highscores
+    post "/score", PlayerController, :score
+    
+    resources "/players", PlayerController, except: [:new, :edit]
   end
 
   scope "/", Derviche do
