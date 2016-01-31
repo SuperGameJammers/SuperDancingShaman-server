@@ -2,8 +2,16 @@ defmodule Derviche.ScoreController do
   use Derviche.Web, :controller
 
   alias Derviche.Score
+  alias Derviche.Keys
+
+  ExFirebase.set_url(Keys.firebase_url)
 
   plug :scrub_params, "score" when action in [:create, :update]
+
+  def get_highscores do
+    highscores = 
+    render(conn, "highscores.json", highscores: highscores)
+  end
 
   def index(conn, _params) do
     scores = Repo.all(Score)
